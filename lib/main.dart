@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tangkap_ikan/models/tangkapan_ikan.dart';
+import 'package:tangkap_ikan/screens/utama_screen.dart';
 
 void main() {
   runApp(TangkapIkanApp());
@@ -15,13 +16,8 @@ class TangkapIkanApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Nelayan Tangkap Ikan'),
-        ),
-        body: Container(
-          child: const Text('Daftar Tangkapan Ikan'),
-        ),
+      home: UtamaScreen(
+        tangkapanIkanList: tangkapanIkanList,
       ),
     );
   }
