@@ -119,7 +119,7 @@ class _UtamaScreenState extends State<UtamaScreen> {
         builder: (context) => FloatingActionButton(
           child: const Icon(Icons.add),
           tooltip: 'Tambah Tangkapan Ikan',
-          onPressed: () => _navigasiTambahkanTangkapanIkan(context),
+          onPressed: () => _navigasiTambahTangkapanIkan(context),
         ),
       ),
     );
@@ -127,7 +127,7 @@ class _UtamaScreenState extends State<UtamaScreen> {
 
   // sebuah method yang menampilkan TambahTangkapanIkan dan menunggu (awaits)
   // hasil TangkapanIkan dari Navigator.pop
-  _navigasiTambahkanTangkapanIkan(BuildContext context) async {
+  _navigasiTambahTangkapanIkan(BuildContext context) async {
     // Navigator.push mengembalikan Future yang akan selesai saat pemanggilan
     // Navigator.pop di TambahTangkapanIkanScreen.
     final TangkapanIkan result = await Navigator.push(
