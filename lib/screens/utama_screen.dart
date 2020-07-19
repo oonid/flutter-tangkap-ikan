@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tangkap_ikan/models/tangkapan_ikan.dart';
 import 'package:tangkap_ikan/screens/detail_tangkapan_ikan_screen.dart';
+import 'package:tangkap_ikan/screens/tambah_tangkapan_ikan_screen.dart';
 
 // Utama atau Laman, artinya halaman utama (HomeScreen)
 // merupakan Stateful Widget karena nanti ada pengubahan state tangkapanIkanList
@@ -113,11 +114,48 @@ class _UtamaScreenState extends State<UtamaScreen> {
           );
         }).toList(),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        tooltip: 'Tambah Tangkapan Ikan',
-        onPressed: () {},
+      floatingActionButton: Builder(
+        // menggunakan builder agar bisa memanggil context di Scaffold.of()
+        builder: (context) => FloatingActionButton(
+          child: const Icon(Icons.add),
+          tooltip: 'Tambah Tangkapan Ikan',
+          onPressed: () => _navigasiTambahkanTangkapanIkan(context),
+        ),
       ),
     );
+  }
+
+  // sebuah method yang menampilkan TambahTangkapanIkan dan menunggu (awaits)
+  // hasil TangkapanIkan dari Navigator.pop
+  _navigasiTambahkanTangkapanIkan(BuildContext context) async {
+    // Navigator.push mengembalikan Future yang akan selesai saat pemanggilan
+    // Navigator.pop di TambahTangkapanIkanScreen.
+    final TangkapanIkan result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TambahTangkapanIkanScreen()),
+    );
+
+    if (result != null && result.tangkapan.length > 0) {
+      // hasil TangkapanIkan tidak null dan ada data tangkapannya.
+
+      setState(() {
+        widget.tangkapanIkanList.add(result);
+      });
+
+      // setelah TambahTangkapanIkan mengembalikan hasil, tampilkan kembalian
+      // datanya dengan SnackBar
+
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+            SnackBar(content: Text('Tangkapan Tanggal: ${result.tanggal}')));
+    } else {
+      // data kosong, informasikan bahwa tidak ditambahkan
+
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+            SnackBar(content: Text('Tangkapan Kosong (tidak ditambahkan).')));
+    }
   }
 }
