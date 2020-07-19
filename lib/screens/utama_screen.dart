@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tangkap_ikan/models/tangkapan_ikan.dart';
+import 'package:tangkap_ikan/screens/detail_tangkapan_ikan_screen.dart';
 
 // Utama atau Laman, artinya halaman utama (HomeScreen)
 // merupakan Stateful Widget karena nanti ada pengubahan state tangkapanIkanList
@@ -18,7 +19,11 @@ class _UtamaScreenState extends State<UtamaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nelayan Tangkap Ikan'),
+        title: const Text('Nelayan Tangkap Ikan',
+            style: TextStyle(
+                fontFamily: 'Lobster_Two',
+                fontStyle: FontStyle.italic,
+                fontSize: 30.0)),
       ),
       body: ListView(
         children: widget.tangkapanIkanList
@@ -49,7 +54,16 @@ class _UtamaScreenState extends State<UtamaScreen> {
 
           // isi dari ListView
           return FlatButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return DetailTangkapanIkanScreen(tangkapanIkan);
+                  },
+                ),
+              );
+            },
             child: Card(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,7 +72,10 @@ class _UtamaScreenState extends State<UtamaScreen> {
                     flex: 1,
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(gambarAset),
+                      child: ConstrainedBox(
+                          constraints:
+                              BoxConstraints(maxHeight: 80.0, maxWidth: 80.0),
+                          child: Image.asset(gambarAset)),
                     ),
                   ),
                   Expanded(
@@ -72,6 +89,7 @@ class _UtamaScreenState extends State<UtamaScreen> {
                           Text(
                             'Tangkapan tanggal: ${tangkapanIkan.tanggal}',
                             style: TextStyle(
+                              fontFamily: 'Lobster_Two',
                               fontSize: 20.0,
                             ),
                           ),
