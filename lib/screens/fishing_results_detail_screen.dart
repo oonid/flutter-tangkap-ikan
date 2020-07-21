@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tangkap_ikan/models/tangkapan_ikan.dart';
+import 'package:tangkap_ikan/models/fishing_results.dart';
 
-// halaman detail dari tangkapan ikan pada suatu hari/tanggal
-// merupakan Stateless Widget karena tidak ada perubahan dari data detail
+// detail screen of the fishing result at single day
+// using Stateless Widget as no state changed on this screen
 
-class DetailTangkapanIkanScreen extends StatelessWidget {
-  final TangkapanIkan tangkapanIkan;
+class FishingResultsDetailScreen extends StatelessWidget {
+  final FishingResults fishingResults;
 
-  DetailTangkapanIkanScreen(this.tangkapanIkan);
+  FishingResultsDetailScreen(this.fishingResults);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class DetailTangkapanIkanScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                'Tangkapan tanggal: ${tangkapanIkan.tanggal}',
+                'Tangkapan tanggal: ${fishingResults.fishingDate}',
                 style: TextStyle(
                   fontFamily: 'Lobster_Two',
                   fontSize: 30.0,
@@ -34,10 +34,10 @@ class DetailTangkapanIkanScreen extends StatelessWidget {
             ),
             ListView(
               shrinkWrap: true,
-              // menonaktifkan scroll di ListView, ikuti ScrollView
+              // deactivate scroll on ListView, will use scroll from ScrollView
               physics: NeverScrollableScrollPhysics(),
-              children: tangkapanIkan.tangkapan.map((tangkapan) {
-                Ikan ikan = tangkapan['jenis'];
+              children: fishingResults.results.map((results) {
+                Seafood seafood = results['type'];
                 return Card(
                   child: Row(
                     children: [
@@ -46,16 +46,17 @@ class DetailTangkapanIkanScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: ConstrainedBox(
-                                constraints: BoxConstraints(
-                                    maxHeight: 64.0, maxWidth: 64.0),
-                                child: Image.asset(ikan.gambarAset)),
+                              constraints: BoxConstraints(
+                                  maxHeight: 64.0, maxWidth: 64.0),
+                              child: Image.asset(seafood.imageAsset),
+                            ),
                           )),
                       Expanded(
                           flex: 3,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
-                                '~ ${ikan.nama}: ${tangkapan['jumlah']} ekor',
+                                '~ ${seafood.name}: ${results['total']} ekor',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w500,

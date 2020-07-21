@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tangkap_ikan/models/tangkapan_ikan.dart';
-import 'package:tangkap_ikan/screens/utama_screen.dart';
+import 'package:tangkap_ikan/models/fishing_results.dart';
+import 'package:tangkap_ikan/screens/home_screen.dart';
 
 void main() {
   runApp(TangkapIkanApp());
 }
+
+// the app name is TangkapIkan (we'll keep it in Bahasa Indonesia)
 
 class TangkapIkanApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -16,58 +18,59 @@ class TangkapIkanApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: UtamaScreen(
-        tangkapanIkanList: tangkapanIkanList,
+      home: HomeScreen(
+        fishingResultsList: fishingResultsList,
       ),
     );
   }
 }
 
-// data awal yang akan ditampilan sebagai daftar tangkapan ikan
-// daftar ini kemudian akan bisa ditambahkan tangkapan ikan oleh pengguna
+// this is initial data that will shown as fishing results when the app starting
+// from this list then user can add new fishing results
+// the sea animal still use Bahasa Indonesia for the shake of user experience
 
-var tangkapanIkanList = [
-  TangkapanIkan(
-    tanggal: '2020-07-03',
-    tangkapan: [
+var fishingResultsList = [
+  FishingResults(
+    fishingDate: '2020-07-03',
+    results: [
       {
-        'jenis': Ikan(nama: 'Baronang', gambarAset: 'images/baronang.jpg'),
-        'jumlah': 11,
+        'type': Seafood(name: 'Baronang', imageAsset: 'images/baronang.jpg'),
+        'total': 11,
       },
       {
-        'jenis': Ikan(nama: 'Kerapu', gambarAset: 'images/kerapu.jpg'),
-        'jumlah': 10,
+        'type': Seafood(name: 'Kerapu', imageAsset: 'images/kerapu.jpg'),
+        'total': 10,
       }
     ],
   ),
-  TangkapanIkan(
-    tanggal: '2020-07-04',
-    tangkapan: [
+  FishingResults(
+    fishingDate: '2020-07-04',
+    results: [
       {
-        'jenis':
-            Ikan(nama: 'Kakap Merah', gambarAset: 'images/kakap-merah.jpg'),
-        'jumlah': 12,
+        'type':
+            Seafood(name: 'Kakap Merah', imageAsset: 'images/kakap-merah.jpg'),
+        'total': 12,
       },
     ],
   ),
-  TangkapanIkan(
-    tanggal: '2020-07-05',
-    tangkapan: [],
+  FishingResults(
+    fishingDate: '2020-07-05',
+    results: [],
   ),
-  TangkapanIkan(
-    tanggal: '2020-07-06',
-    tangkapan: [
+  FishingResults(
+    fishingDate: '2020-07-06',
+    results: [
       {
-        'jenis': Ikan(nama: 'Cumi', gambarAset: 'images/cumi.jpg'),
-        'jumlah': 12,
+        'type': Seafood(name: 'Cumi', imageAsset: 'images/cumi.jpg'),
+        'total': 12,
       },
       {
-        'jenis': Ikan(nama: 'Udang', gambarAset: 'images/udang.jpg'),
-        'jumlah': 11,
+        'type': Seafood(name: 'Udang', imageAsset: 'images/udang.jpg'),
+        'total': 11,
       },
       {
-        'jenis': Ikan(nama: 'Kepiting', gambarAset: 'images/kepiting.jpg'),
-        'jumlah': 10,
+        'type': Seafood(name: 'Kepiting', imageAsset: 'images/kepiting.jpg'),
+        'total': 10,
       },
     ],
   ),
