@@ -46,65 +46,60 @@ class _AddFishingResultsScreenState extends State<AddFishingResultsScreen> {
                 fontStyle: FontStyle.italic,
                 fontSize: 30.0)),
       ),
-      body: Builder(
-        // using Builder to be able to pass context in Scaffold.of()
-        builder: (context) => Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: [
-                    Text(
-                        "Tanggal: " + "${selectedDate.toLocal()}".split(' ')[0],
-                        style: TextStyle(
-                          fontFamily: 'Lobster_Two',
-                          fontSize: 30.0,
-                        )),
-                    FlatButton(
-                      child: const Icon(Icons.calendar_today),
-                      onPressed: () => _selectDate(context),
-                    )
-                  ],
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: [
+                  Text("Tanggal: " + "${selectedDate.toLocal()}".split(' ')[0],
+                      style: TextStyle(
+                        fontFamily: 'Lobster_Two',
+                        fontSize: 30.0,
+                      )),
+                  FlatButton(
+                    child: const Icon(Icons.calendar_today),
+                    onPressed: () => _selectDate(context),
+                  )
+                ],
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: 256.0, minHeight: 64.0),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: results.map((m) {
+                    Seafood seafood = m['type'];
+                    return Card(
+                      child: Text('~ ${seafood.name}: ${m['total']} ekor'),
+                    );
+                  }).toList(),
                 ),
-                ConstrainedBox(
-                  constraints:
-                      BoxConstraints(maxHeight: 256.0, minHeight: 64.0),
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: results.map((m) {
-                      Seafood seafood = m['type'];
-                      return Card(
-                        child: Text('~ ${seafood.name}: ${m['total']} ekor'),
-                      );
-                    }).toList(),
-                  ),
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    // validate will return true if the form valid
-                    if (_formKey.currentState.validate()) {
-                      // the form is valid, process the form data
+              ),
+              RaisedButton(
+                onPressed: () {
+                  // validate will return true if the form valid
+                  if (_formKey.currentState.validate()) {
+                    // the form is valid, process the form data
 
-                      // call save() will trigger onSaved on every Form fields
-                      _formKey.currentState.save();
+                    // call save() will trigger onSaved on every Form fields
+                    _formKey.currentState.save();
 
-                      // returns FishingResults
-                      // previous screen awaits for returns from Navigator.pop
-                      Navigator.pop(
-                          context,
-                          FishingResults(
-                              fishingDate: '${selectedDate.year}-'
-                                  '${selectedDate.month}-'
-                                  '${selectedDate.day}',
-                              results: results));
-                    }
-                  },
-                  child: Text('Submit'),
-                )
-              ],
-            ),
+                    // returns FishingResults
+                    // previous screen awaits for returns from Navigator.pop
+                    Navigator.pop(
+                        context,
+                        FishingResults(
+                            fishingDate: '${selectedDate.year}-'
+                                '${selectedDate.month}-'
+                                '${selectedDate.day}',
+                            results: results));
+                  }
+                },
+                child: Text('Submit'),
+              )
+            ],
           ),
         ),
       ),

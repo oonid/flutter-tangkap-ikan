@@ -55,14 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           // isi dari ListView
           return FlatButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return FishingResultsDetailScreen(fishingResults);
-                  },
-                ),
-              );
+              Navigator.of(context).push(_routeToDetail(fishingResults));
             },
             child: Card(
               child: Row(
@@ -155,5 +148,25 @@ class _HomeScreenState extends State<HomeScreen> {
         ..showSnackBar(
             SnackBar(content: Text('Tangkapan Kosong (tidak ditambahkan).')));
     }
+  }
+
+  Route _routeToDetail(fishingResults) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          FishingResultsDetailScreen(fishingResults),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(1.0, 0.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 }

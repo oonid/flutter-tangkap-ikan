@@ -1,25 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:tangkap_ikan/models/fishing_results.dart';
 import 'package:tangkap_ikan/screens/home_screen.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 void main() {
   runApp(TangkapIkanApp());
 }
 
 // the app name is TangkapIkan (we'll keep it in Bahasa Indonesia)
+// using Stateful Widget to show splash screen
 
-class TangkapIkanApp extends StatelessWidget {
-  // This widget is the root of your application.
+class TangkapIkanApp extends StatefulWidget {
+  @override
+  _TangkapIkanAppState createState() => _TangkapIkanAppState();
+}
+
+class _TangkapIkanAppState extends State<TangkapIkanApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Aplikasi Nelayan Tangkap Ikan',
+      home: SplashScreen(
+        seconds: 3,
+        navigateAfterSeconds: HomeScreen(
+          fishingResultsList: fishingResultsList,
+        ),
+        image: Image.asset('images/tangkap_ikan.png'),
+        backgroundColor: Colors.white,
+        photoSize: 80.0,
+        loaderColor: Colors.blueGrey,
+      ),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: HomeScreen(
-        fishingResultsList: fishingResultsList,
       ),
     );
   }

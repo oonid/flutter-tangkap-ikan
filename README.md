@@ -19,7 +19,9 @@ Catatan:
 * Aplikasi ini fokus untuk perangkat Android, belum dilakukan pengujian untuk iOS.
 * Belum menggunakan penyimpanan tetap, sehingga setiap keluar dari aplikasi datanya akan hilang.
 * Desain dari aplikasinya masih sangat sederhana.
-* Pengulas (reviewer) dari tugas ini mensyaratkan penggunaan bahasa Inggris di penulisan kodenya.
+* Pengulas (_reviewer_) dari tugas ini mensyaratkan penggunaan bahasa Inggris di penulisan kodenya.
+* Pengulas (_reviewer_) juga menyarankan penggunaan animasi: halaman Detail pakai `SlideTransition`.
+* Ditambahkan SplashScreen menggunakan paket `splashscreen`.
 
 ## Pembuat
 
